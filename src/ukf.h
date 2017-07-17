@@ -66,7 +66,13 @@ public:
 
   ///* Sigma point spreading parameter
   double lambda_;
-
+  
+    int n_z_;
+    
+    MatrixXd ZSig_;
+    
+    // previous timestamp
+    long long previous_timestamp_;
 
   /**
    * Constructor
@@ -95,13 +101,13 @@ public:
    * Updates the state and the state covariance matrix using a laser measurement
    * @param meas_package The measurement at k+1
    */
-  void UpdateLidar(MeasurementPackage meas_package);
+  void UpdateLidar(const MeasurementPackage & meas_package);
 
   /**
    * Updates the state and the state covariance matrix using a radar measurement
    * @param meas_package The measurement at k+1
    */
-  void UpdateRadar(MeasurementPackage meas_package);
+  void UpdateRadar(const MeasurementPackage & meas_package);
 };
 
 #endif /* UKF_H */
