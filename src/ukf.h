@@ -35,45 +35,53 @@ public:
   long long time_us_;
 
   ///* Process noise standard deviation longitudinal acceleration in m/s^2
-  double std_a_;
+  const double std_a_;
 
   ///* Process noise standard deviation yaw acceleration in rad/s^2
-  double std_yawdd_;
+  const double std_yawdd_;
 
   ///* Laser measurement noise standard deviation position1 in m
-  double std_laspx_;
+  const double std_laspx_;
 
   ///* Laser measurement noise standard deviation position2 in m
-  double std_laspy_;
+  const double std_laspy_;
 
   ///* Radar measurement noise standard deviation radius in m
-  double std_radr_;
+  const double std_radr_;
 
   ///* Radar measurement noise standard deviation angle in rad
-  double std_radphi_;
+  const double std_radphi_;
 
   ///* Radar measurement noise standard deviation radius change in m/s
-  double std_radrd_ ;
+  const double std_radrd_ ;
 
   ///* Weights of sigma points
   VectorXd weights_;
 
   ///* State dimension
-  int n_x_;
+  const int n_x_;
 
   ///* Augmented state dimension
-  int n_aug_;
+  const int n_aug_;
 
   ///* Sigma point spreading parameter
   double lambda_;
   
-    int n_z_;
+  int n_z_;
     
-    MatrixXd ZSig_;
+  MatrixXd ZSig_;
     
-    // previous timestamp
-    long long previous_timestamp_;
-
+  // previous timestamp
+  long long previous_timestamp_;
+  // pre=allocate some workspace variables
+    //create augmented mean vector
+    VectorXd x_aug;
+    
+    //create augmented state covariance
+    MatrixXd P_aug;
+    //create sigma point matrix
+    MatrixXd Xsig_aug;
+    
   /**
    * Constructor
    */
@@ -88,7 +96,7 @@ public:
    * ProcessMeasurement
    * @param meas_package The latest measurement data of either radar or laser
    */
-  void ProcessMeasurement(MeasurementPackage meas_package);
+  void ProcessMeasurement(const MeasurementPackage & meas_package);
 
   /**
    * Prediction Predicts sigma points, the state, and the state covariance
